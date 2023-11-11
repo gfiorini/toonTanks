@@ -18,17 +18,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-private:
-	UPROPERTY(VisibleAnywhere)
+protected:
+	UPROPERTY(EditDefaultsOnly)
 	class UCapsuleComponent* CapsuleComponent;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent* BaseMeshComponent;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent* TurretComponent;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* ProjectileSpawnPoint;
 
 public:
