@@ -17,9 +17,13 @@ class TOONTANKS_API ATank : public ABasePawn {
 public:
 	ATank();
 
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
@@ -36,6 +40,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	class UCameraComponent* CameraComponent;
+
+	UPROPERTY()
+	APlayerController* PlayerController;
 
 	void MoveForward(float Value);
 

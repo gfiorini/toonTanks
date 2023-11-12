@@ -15,11 +15,23 @@ ATank::ATank() {
 	CameraComponent->SetupAttachment(SpringArmComponent);
 }
 
+void ATank::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+}
+
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATank::MoveForward);
 	PlayerInputComponent->BindAxis("Turn", this, &ATank::Turn);
 	PlayerInputComponent->BindAxis("RotateTurret", this, &ATank::RotateTurret);
+}
+
+void ATank::BeginPlay() {
+	Super::BeginPlay();
+	PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController) {
+		RotateTurret(0);
+	}
 }
 
 void ATank::MoveForward(float Value) {
@@ -38,10 +50,23 @@ void ATank::Turn(float Value) {
 	AddActorLocalRotation(Rotation);
 }
 
+
 void ATank::RotateTurret(float Value) {
-	FRotator TurretRotation = FRotator();
-	const UWorld* World = GetWorld();
-	const float DeltaTime = World->GetDeltaSeconds();
-	TurretRotation.Yaw = Value * TurretRotationSpeed * DeltaTime;
-	TurretComponent->AddLocalRotation(TurretRotation);
-}
+	// 	FRotator TurretRotation = FRotator();
+	// 	const UWorld* World = GetWorld();
+	// 	const float DeltaTime = World->GetDeltaSeconds();
+	// 	TurretRotation.Yaw = Value * TurretRotationSpeed * DeltaTime;
+	// 	TurretComponent->AddLocalRotation(TurretRotation);
+
+	if (PlayerController) {
+		FHitResult HitResult;
+		bool bHit = PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+		if (bHit) {
+			FVector ImpactPoint = HitResult.ImpactPoint;
+			FTransform TurretTransform = TurretComponent->GetComponentTransform();
+			DrawDebugSphere(GetWorld(), ImpactPoint, 25, 10, FColor::Red, false, -1);
+			FVector TargetVector = FVector(ImpactPoint.X, ImpactPoint.Y, TurretTransform.GetLocation().Z);
+			FVector LookAt = (TargetVector - TurretTransform.GetLocation());
+			//DrawDebugLine(GetWorld(), TurretTransform.GetLocation(), LookAt, FColor::Blue);
+			//TurretComponent->SetWorldRotation(LookAt.Rotation());
+		}
