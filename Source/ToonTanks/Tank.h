@@ -22,6 +22,9 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float Speed;
+
 	UPROPERTY(EditDefaultsOnly)
 	class USpringArmComponent* SpringArmComponent;
 
