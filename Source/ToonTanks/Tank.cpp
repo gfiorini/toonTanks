@@ -5,6 +5,7 @@
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Engine/World.h"
 
 ATank::ATank() {
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm Component"));
@@ -16,11 +17,22 @@ ATank::ATank() {
 
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent->BindAxis("MoveForward", this, &ATank::Move);
+	PlayerInputComponent->BindAxis("MoveForward", this, &ATank::MoveForward);
+	PlayerInputComponent->BindAxis("Turn", this, &ATank::Turn);
 }
 
-void ATank::Move(float Value) {
+void ATank::MoveForward(float Value) {
 	FVector DeltaLocation = FVector();
-	DeltaLocation.X = Value * Speed;
+	UWorld* world = GetWorld();
+	float DeltaTime = world->GetDeltaSeconds();
+	DeltaLocation.X = Value * MovementSpeed * DeltaTime;
 	AddActorLocalOffset(DeltaLocation);
+}
+
+void ATank::Turn(float Value) {
+	FRotator Rotation = FRotator();
+	UWorld* world = GetWorld();
+	float DeltaTime = world->GetDeltaSeconds();
+	Rotation.Yaw = Value * RotationSpeed * DeltaTime;
+	AddActorLocalRotation(Rotation);
 }

@@ -23,7 +23,13 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, Category="Movement")
-	float Speed;
+	float MovementSpeed;
+
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float RotationSpeed;
+
+	UPROPERTY(EditAnywhere, Category="Movement")
+	float TurretRotationSpeed;
 
 	UPROPERTY(EditDefaultsOnly)
 	class USpringArmComponent* SpringArmComponent;
@@ -31,5 +37,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	class UCameraComponent* CameraComponent;
 
-	void Move(float Value);
+	void MoveForward(float Value);
+
+	void Turn(float Value);
 };
