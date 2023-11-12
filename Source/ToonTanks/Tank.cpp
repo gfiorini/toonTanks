@@ -27,7 +27,7 @@ void ATank::MoveForward(float Value) {
 	const UWorld* World = GetWorld();
 	const float DeltaTime = World->GetDeltaSeconds();
 	DeltaLocation.X = Value * MovementSpeed * DeltaTime;
-	AddActorLocalOffset(DeltaLocation);
+	AddActorLocalOffset(DeltaLocation, true);
 }
 
 void ATank::Turn(float Value) {
