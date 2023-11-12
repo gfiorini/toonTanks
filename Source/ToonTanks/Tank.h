@@ -40,4 +40,6 @@ private:
 	void MoveForward(float Value);
 
 	void Turn(float Value);
+
+	void RotateTurret(float Value);
 };
