@@ -32,9 +32,6 @@ private:
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float RotationSpeed;
 
-	UPROPERTY(EditAnywhere, Category="Movement")
-	float TurretRotationSpeed;
-
 	UPROPERTY(EditDefaultsOnly)
 	class USpringArmComponent* SpringArmComponent;
 

@@ -29,36 +29,30 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 void ATank::BeginPlay() {
 	Super::BeginPlay();
 	PlayerController = Cast<APlayerController>(GetController());
-	if (PlayerController) {
-		RotateTurret(0);
-	}
 }
 
 void ATank::MoveForward(float Value) {
-	FVector DeltaLocation = FVector();
-	const UWorld* World = GetWorld();
-	const float DeltaTime = World->GetDeltaSeconds();
-	DeltaLocation.X = Value * MovementSpeed * DeltaTime;
-	AddActorLocalOffset(DeltaLocation, true);
+	if (Value != 0) {
+		FVector DeltaLocation = FVector();
+		const UWorld* World = GetWorld();
+		const float DeltaTime = World->GetDeltaSeconds();
+		DeltaLocation.X = Value * MovementSpeed * DeltaTime;
+		AddActorLocalOffset(DeltaLocation, true);
+	}
 }
 
 void ATank::Turn(float Value) {
-	FRotator Rotation = FRotator();
-	const UWorld* World = GetWorld();
-	const float DeltaTime = World->GetDeltaSeconds();
-	Rotation.Yaw = Value * RotationSpeed * DeltaTime;
-	AddActorLocalRotation(Rotation);
+	if (Value != 0) {
+		FRotator Rotation = FRotator();
+		const UWorld* World = GetWorld();
+		const float DeltaTime = World->GetDeltaSeconds();
+		Rotation.Yaw = Value * RotationSpeed * DeltaTime;
+		AddActorLocalRotation(Rotation);
+	}
 }
 
-
 void ATank::RotateTurret(float Value) {
-	// 	FRotator TurretRotation = FRotator();
-	// 	const UWorld* World = GetWorld();
-	// 	const float DeltaTime = World->GetDeltaSeconds();
-	// 	TurretRotation.Yaw = Value * TurretRotationSpeed * DeltaTime;
-	// 	TurretComponent->AddLocalRotation(TurretRotation);
-
-	if (PlayerController) {
+	if (Value != 0 && PlayerController) {
 		FHitResult HitResult;
 		bool bHit = PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
 		if (bHit) {
@@ -67,6 +61,10 @@ void ATank::RotateTurret(float Value) {
 			DrawDebugSphere(GetWorld(), ImpactPoint, 25, 10, FColor::Red, false, -1);
 			FVector TargetVector = FVector(ImpactPoint.X, ImpactPoint.Y, TurretTransform.GetLocation().Z);
 			FVector LookAt = (TargetVector - TurretTransform.GetLocation());
-			//DrawDebugLine(GetWorld(), TurretTransform.GetLocation(), LookAt, FColor::Blue);
-			//TurretComponent->SetWorldRotation(LookAt.Rotation());
+			float InterpolationSpeed = 20;
+			FRotator InterpolatedRotation = FMath::RInterpTo(TurretTransform.Rotator(), LookAt.Rotation(),
+			                                                 GetWorld()->GetDeltaSeconds(), InterpolationSpeed);
+			TurretComponent->SetWorldRotation(InterpolatedRotation);
 		}
+	}
+}
