@@ -22,6 +22,16 @@ void ABasePawn::BeginPlay() {
 	Super::BeginPlay();
 }
 
+void ABasePawn::RotateTurret(FVector TargetVector) {
+	FVector LookAt = (TargetVector - TurretComponent->GetComponentTransform().GetLocation());
+	float InterpolationSpeed = 20;
+	FRotator InterpolatedRotation = FMath::RInterpTo(TurretComponent->GetComponentTransform().Rotator(),
+	                                                 LookAt.Rotation(),
+	                                                 GetWorld()->GetDeltaSeconds(), InterpolationSpeed);
+	TurretComponent->SetWorldRotation(InterpolatedRotation);
+}
+
+
 // Called every frame
 void ABasePawn::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);

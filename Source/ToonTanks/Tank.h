@@ -17,6 +17,7 @@ class TOONTANKS_API ATank : public ABasePawn {
 public:
 	ATank();
 
+
 	virtual void Tick(float DeltaTime) override;
 
 protected:
@@ -45,5 +46,5 @@ private:
 
 	void Turn(float Value);
 
-	void RotateTurret(float Value);
+	void HandleTankTurret(float Value);
 };
