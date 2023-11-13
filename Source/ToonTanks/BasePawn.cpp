@@ -25,8 +25,13 @@ void ABasePawn::BeginPlay() {
 void ABasePawn::RotateTurret(FVector TargetVector) {
 	FVector LookAt = (TargetVector - TurretComponent->GetComponentTransform().GetLocation());
 	float InterpolationSpeed = 20;
+
+	FRotator Rotation = LookAt.Rotation();
+	//conta solo lo 'Yaw' (rotazione lungo asse z)
+	Rotation.Roll = 0;
+	Rotation.Pitch = 0;
 	FRotator InterpolatedRotation = FMath::RInterpTo(TurretComponent->GetComponentTransform().Rotator(),
-	                                                 LookAt.Rotation(),
+	                                                 Rotation,
 	                                                 GetWorld()->GetDeltaSeconds(), InterpolationSpeed);
 	TurretComponent->SetWorldRotation(InterpolatedRotation);
 }

@@ -57,11 +57,7 @@ void ATank::HandleTankTurret(float Value) {
 		FHitResult HitResult;
 		bool bHit = PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
 		if (bHit) {
-			FVector ImpactPoint = HitResult.ImpactPoint;
-			FTransform TurretTransform = TurretComponent->GetComponentTransform();
-			DrawDebugSphere(GetWorld(), ImpactPoint, 25, 10, FColor::Red, false, -1);
-			FVector TargetVector = FVector(ImpactPoint.X, ImpactPoint.Y, TurretTransform.GetLocation().Z);
-			Super::RotateTurret(TargetVector);
+			Super::RotateTurret(HitResult.ImpactPoint);
 		}
 	}
 }
