@@ -47,4 +47,5 @@ private:
 	void Turn(float Value);
 
 	void HandleTankTurret(float Value);
+	virtual void Fire() override;
 };

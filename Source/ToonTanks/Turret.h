@@ -14,6 +14,9 @@ class TOONTANKS_API ATurret : public ABasePawn {
 	GENERATED_BODY()
 
 public:
+	void MoveTowerIfNeeded();
+	
+	bool InFireRange();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -26,6 +29,12 @@ private:
 	float Distance = 0.;
 	UPROPERTY()
 	APawn* PlayerPawn;
+
+	FTimerHandle TimerHandle;
+
+	float FireRate = 2.;
+
+	void FireIfYouCan();
 
 	float GetDistanceTo(FVector target);
 };

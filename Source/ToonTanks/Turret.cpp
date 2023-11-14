@@ -6,15 +6,31 @@
 #include "Kismet/GameplayStatics.h"
 
 
-void ATurret::Tick(float DeltaTime) {
-	Super::Tick(DeltaTime);
+bool ATurret::InFireRange() {
 	if (PlayerPawn) {
-		FVector Target = PlayerPawn->GetTransform().GetLocation();
-		if (GetDistanceTo(Target) <= Distance) {
-			Super::RotateTurret(Target);
-		}
+		FVector Target = PlayerPawn->GetActorLocation();
+		return GetDistanceTo(Target) <= Distance;
+	}
+	return false;
+}
+
+void ATurret::MoveTowerIfNeeded() {
+	if (InFireRange()) {
+		Super::RotateTurret(PlayerPawn->GetActorLocation());
 	}
 }
+
+void ATurret::FireIfYouCan() {
+	if (InFireRange()) {
+		Super::Fire();
+	}
+}
+
+void ATurret::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+	MoveTowerIfNeeded();
+}
+
 
 float ATurret::GetDistanceTo(FVector Target) {
 	const float DistanceTo = FVector::Distance(GetTransform().GetLocation(), Target);
@@ -23,5 +39,6 @@ float ATurret::GetDistanceTo(FVector Target) {
 
 void ATurret::BeginPlay() {
 	Super::BeginPlay();
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ATurret::FireIfYouCan, FireRate, true);
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
 }

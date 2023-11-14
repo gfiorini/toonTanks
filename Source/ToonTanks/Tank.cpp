@@ -25,6 +25,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATank::MoveForward);
 	PlayerInputComponent->BindAxis("Turn", this, &ATank::Turn);
 	PlayerInputComponent->BindAxis("RotateTurret", this, &ATank::HandleTankTurret);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATank::Fire);
 }
 
 void ATank::BeginPlay() {
@@ -60,4 +61,11 @@ void ATank::HandleTankTurret(float Value) {
 			Super::RotateTurret(HitResult.ImpactPoint);
 		}
 	}
+}
+
+void ATank::Fire() {
+	DrawDebugSphere(GetWorld(),
+	                ProjectileSpawnPoint->GetComponentTransform().GetLocation(),
+	                14, 16, FColor::Red,
+	                false, 1);
 }
