@@ -22,7 +22,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(EditAnywhere, Category="IA Controller")
+	UPROPERTY(EditAnywhere, Category="Combat")
 	float Distance = 0.;
 	UPROPERTY()
 	APawn* PlayerPawn;
