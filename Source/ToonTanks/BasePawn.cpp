@@ -1,4 +1,6 @@
 #include "BasePawn.h"
+
+#include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 
 // Sets default values
@@ -42,8 +44,11 @@ void ABasePawn::Tick(float DeltaTime) {
 }
 
 void ABasePawn::Fire() {
-	DrawDebugSphere(GetWorld(),
-	                ProjectileSpawnPoint->GetComponentTransform().GetLocation(),
-	                10, 32, FColor::Emerald,
-	                false, 1);
+	// DrawDebugSphere(GetWorld(),
+	//                 ProjectileSpawnPoint->GetComponentTransform().GetLocation(),
+	//                 10, 32, FColor::Emerald,
+	//                 false, 1);
+
+	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+	                                    ProjectileSpawnPoint->GetComponentRotation());
 }
