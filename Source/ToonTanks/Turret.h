@@ -27,6 +27,7 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	float Distance = 0.;
+	
 	UPROPERTY()
 	APawn* PlayerPawn;
 
