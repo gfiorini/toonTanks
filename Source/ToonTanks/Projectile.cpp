@@ -3,12 +3,19 @@
 
 #include "Projectile.h"
 
+#include "GameFramework/ProjectileMovementComponent.h"
+
 // Sets default values
 AProjectile::AProjectile() {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	BaseMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh Component"));
 	RootComponent = BaseMeshComponent;
+
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(
+		TEXT("Projectile Movement Component"));
+	ProjectileMovementComponent->InitialSpeed = 10;
+	ProjectileMovementComponent->MaxSpeed = 100;
 }
 
 // Called when the game starts or when spawned
