@@ -38,22 +38,14 @@ void AProjectile::Tick(float DeltaTime) {
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                         FVector NormalImpulse, const FHitResult& Hit) {
 	AActor* ProjectileOwner = GetOwner();
-	if (ProjectileOwner) {
-		AController* InstigatorController = ProjectileOwner->GetInstigatorController();
-		if (OtherActor && OtherActor != this && OtherActor != ProjectileOwner) {
-			// quale attore ho colpito
-			UE_LOG(LogTemp, Log, TEXT("OtherActor %s"), *OtherActor->GetName());
-			UHealthComponent* HealthComponent = OtherActor->GetComponentByClass<UHealthComponent>();
-			if (HealthComponent) {
-				UE_LOG(LogTemp, Warning, TEXT("HealthComponent TROVATO!"));
-			}
-			const TSubclassOf<UDamageType> ValidDamageTypeClass = TSubclassOf<UDamageType>(UDamageType::StaticClass());
-			UGameplayStatics::ApplyDamage(OtherActor, Damage, InstigatorController, ProjectileOwner,
-			                              ValidDamageTypeClass);
-		}
+	if (ProjectileOwner == nullptr) {
+		return;
+	}
+	if (OtherActor && OtherActor != ProjectileOwner) {
+		UGameplayStatics::ApplyDamage(OtherActor, Damage, ProjectileOwner->GetInstigatorController(),
+		                              ProjectileOwner,
+		                              UDamageType::StaticClass());
 	}
 
-
-	// TODO explode
-	GetWorld()->DestroyActor(this);
+	Destroy();
 }

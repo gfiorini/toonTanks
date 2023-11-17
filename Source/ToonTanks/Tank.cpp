@@ -25,7 +25,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATank::MoveForward);
 	PlayerInputComponent->BindAxis("Turn", this, &ATank::Turn);
 	PlayerInputComponent->BindAxis("RotateTurret", this, &ATank::HandleTankTurret);
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATank::Fire);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ATank::Fire);
 }
 
 void ATank::BeginPlay() {
