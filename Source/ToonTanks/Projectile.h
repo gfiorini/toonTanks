@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BasePawn.h"
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
@@ -14,6 +15,8 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	           FVector NormalImpulse, const FHitResult& Hit);
+
+	void IgnoreActor(ABasePawn* BasePawn);
 	// Sets default values for this actor's properties
 	AProjectile();
 
@@ -32,8 +35,8 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	class UProjectileMovementComponent* ProjectileMovementComponent;
 
-	UPROPERTY()
-	APawn* PlayerPawn;
+	// UPROPERTY()
+	// APawn* PlayerPawn;
 
 	UPROPERTY(EditAnywhere)
 	float Damage = 10.f;

@@ -53,4 +53,5 @@ void ABasePawn::Fire() {
 	                                                            ProjectileSpawnPoint->GetComponentLocation(),
 	                                                            ProjectileSpawnPoint->GetComponentRotation());
 	Projectile->SetOwner(this);
+	Projectile->IgnoreActor(this);
 }

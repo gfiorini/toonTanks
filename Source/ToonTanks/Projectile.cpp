@@ -25,7 +25,7 @@ AProjectile::AProjectile() {
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay() {
 	Super::BeginPlay();
-	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+	//PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
 
 	BaseMeshComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
@@ -48,4 +48,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 		Destroy();
 	}
+}
+
+void AProjectile::IgnoreActor(ABasePawn* APawn) {
+	BaseMeshComponent->IgnoreActorWhenMoving(APawn, true);
 }
