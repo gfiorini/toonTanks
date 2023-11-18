@@ -18,6 +18,8 @@ public:
 	ATank();
 
 	virtual void Tick(float DeltaTime) override;
+	virtual void HandleDestruction() override;
+	APlayerController* GetPlayerController();
 
 protected:
 	// Called to bind functionality to input

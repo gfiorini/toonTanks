@@ -6,12 +6,19 @@
 #include "GameFramework/GameModeBase.h"
 #include "ToonTankGameMode.generated.h"
 
+
 /**
  * 
  */
 UCLASS()
-class TOONTANKS_API AToonTankGameMode : public AGameModeBase
-{
+class TOONTANKS_API AToonTankGameMode : public AGameModeBase {
 	GENERATED_BODY()
-	
+
+private:
+	UPROPERTY()
+	class ATank* Tank;
+
+public:
+	void ActorDied(AActor* actor);
+	virtual void BeginPlay() override;
 };

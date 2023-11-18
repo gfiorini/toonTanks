@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ToonTankGameMode.h"
 #include "Components/ActorComponent.h"
 #include "HealthComponent.generated.h"
 
@@ -32,4 +33,7 @@ private:
 	float MaxHealth = 100.f;
 
 	float Health;
+
+	UPROPERTY()
+	AToonTankGameMode* ToonTankGameMode;
 };

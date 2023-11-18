@@ -15,10 +15,11 @@ class TOONTANKS_API ATurret : public ABasePawn {
 
 public:
 	void MoveTowerIfNeeded();
-	
+
 	bool InFireRange();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void HandleDestruction() override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -27,7 +28,7 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	float Distance = 0.;
-	
+
 	UPROPERTY()
 	APawn* PlayerPawn;
 

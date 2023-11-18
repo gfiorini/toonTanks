@@ -42,3 +42,8 @@ void ATurret::BeginPlay() {
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ATurret::FireIfYouCan, FireRate, true);
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
 }
+
+void ATurret::HandleDestruction() {
+	Super::HandleDestruction();
+	Destroy();
+}

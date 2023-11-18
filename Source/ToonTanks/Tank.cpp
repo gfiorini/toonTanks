@@ -31,6 +31,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 void ATank::BeginPlay() {
 	Super::BeginPlay();
 	PlayerController = Cast<APlayerController>(GetController());
+	PlayerController->SetShowMouseCursor(true);
 }
 
 void ATank::MoveForward(float Value) {
@@ -69,4 +70,14 @@ void ATank::Fire() {
 	//                 ProjectileSpawnPoint->GetComponentTransform().GetLocation(),
 	//                 14, 16, FColor::Red,
 	//                 false, 1);
+}
+
+void ATank::HandleDestruction() {
+	Super::HandleDestruction();
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}
+
+APlayerController* ATank::GetPlayerController() {
+	return PlayerController;
 }

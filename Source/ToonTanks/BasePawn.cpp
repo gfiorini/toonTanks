@@ -55,3 +55,6 @@ void ABasePawn::Fire() {
 	Projectile->SetOwner(this);
 	Projectile->IgnoreActor(this);
 }
+
+void ABasePawn::HandleDestruction() {
+}
