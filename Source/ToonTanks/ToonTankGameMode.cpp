@@ -13,9 +13,14 @@ void AToonTankGameMode::ActorDied(AActor* Actor) {
 	if (Tank == Actor) {
 		Tank->HandleDestruction();
 		TankController->SetPlayerEnabledState(false);
+		GameOver(false);
 	} else {
 		if (ATurret* Turret = Cast<ATurret>(Actor)) {
+			NumTurrets--;
 			Turret->HandleDestruction();
+			if (NumTurrets == 0) {
+				GameOver(true);
+			}
 		}
 	}
 }
@@ -23,7 +28,14 @@ void AToonTankGameMode::ActorDied(AActor* Actor) {
 void AToonTankGameMode::BeginPlay() {
 	Super::BeginPlay();
 	AToonTankGameMode::HandleGameStart();
+	NumTurrets = GetNumTurrets();
 	StartGame();
+}
+
+int AToonTankGameMode::GetNumTurrets() {
+	TArray<AActor*> Turrets;
+	UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Turrets);
+	return Turrets.Num();
 }
 
 void AToonTankGameMode::HandleGameStart() {
@@ -38,3 +50,11 @@ void AToonTankGameMode::HandleGameStart() {
 		GetWorldTimerManager().SetTimer(TimerHandle, TimerDelegate, Delay, false);
 	}
 }
+
+// void AToonTankGameMode::GameOver(bool bWon) {
+// 	if (bWon) {
+// 		UE_LOG(LogTemp, Log, TEXT("GameOver: Hai VINTO!!!"));
+// 	} else {
+// 		UE_LOG(LogTemp, Log, TEXT("GameOver: Hai PERSO!!! LOOOOSER!!!"));
+// 	}
+// }
