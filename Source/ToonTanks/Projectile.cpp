@@ -7,6 +7,7 @@
 #include "Tank.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 
 // Sets default values
@@ -15,6 +16,9 @@ AProjectile::AProjectile() {
 	PrimaryActorTick.bCanEverTick = true;
 	BaseMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh Component"));
 	RootComponent = BaseMeshComponent;
+
+	TrailParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Trail Particle Component"));
+	TrailParticle->SetupAttachment(RootComponent);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(
 		TEXT("Projectile Movement Component"));
