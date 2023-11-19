@@ -19,6 +19,10 @@ public:
 	virtual void BeginPlay() override;
 	virtual void HandleGameStart();
 
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartGame();
+
 private:
 	UPROPERTY()
 	class ATank* Tank;

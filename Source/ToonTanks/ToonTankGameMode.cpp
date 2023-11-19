@@ -23,6 +23,7 @@ void AToonTankGameMode::ActorDied(AActor* Actor) {
 void AToonTankGameMode::BeginPlay() {
 	Super::BeginPlay();
 	AToonTankGameMode::HandleGameStart();
+	StartGame();
 }
 
 void AToonTankGameMode::HandleGameStart() {
