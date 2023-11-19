@@ -47,14 +47,6 @@ void AToonTankGameMode::HandleGameStart() {
 		                                                                   &AToonTankPlayerController::SetPlayerEnabledState,
 		                                                                   true);
 		FTimerHandle TimerHandle;
-		GetWorldTimerManager().SetTimer(TimerHandle, TimerDelegate, Delay, false);
+		GetWorldTimerManager().SetTimer(TimerHandle, TimerDelegate, Countdown, false);
 	}
 }
-
-// void AToonTankGameMode::GameOver(bool bWon) {
-// 	if (bWon) {
-// 		UE_LOG(LogTemp, Log, TEXT("GameOver: Hai VINTO!!!"));
-// 	} else {
-// 		UE_LOG(LogTemp, Log, TEXT("GameOver: Hai PERSO!!! LOOOOSER!!!"));
-// 	}
-// }

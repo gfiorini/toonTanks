@@ -25,14 +25,15 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool bWon);
 
+	UPROPERTY(BlueprintReadWrite)
+	float Countdown = 4.f;
+
 private:
 	UPROPERTY()
 	class ATank* Tank;
 
 	UPROPERTY()
 	class AToonTankPlayerController* TankController;
-
-	float Delay = 3.f;
 
 	int NumTurrets = 0;
 
