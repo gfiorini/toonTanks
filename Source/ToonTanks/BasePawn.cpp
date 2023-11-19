@@ -2,6 +2,8 @@
 
 #include "Projectile.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
 
 // Sets default values
 ABasePawn::ABasePawn() {
@@ -12,6 +14,7 @@ ABasePawn::ABasePawn() {
 	BaseMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh Component"));
 	TurretComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Turret Mesh Component"));
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Spawn Point Component"));
+	DeathParticleSystem = CreateDefaultSubobject<UParticleSystem>(TEXT("Death Particle System"));
 
 	RootComponent = CapsuleComponent;
 	BaseMeshComponent->SetupAttachment(RootComponent);
@@ -57,4 +60,7 @@ void ABasePawn::Fire() {
 }
 
 void ABasePawn::HandleDestruction() {
+	if (DeathParticleSystem) {
+		UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticleSystem, GetActorLocation(), GetActorRotation());
+	}
 }
