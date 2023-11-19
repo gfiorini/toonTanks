@@ -18,6 +18,9 @@ private:
 	UPROPERTY()
 	class ATank* Tank;
 
+	UPROPERTY()
+	class AToonTankPlayerController* TankController;
+
 public:
 	void ActorDied(AActor* actor);
 	virtual void BeginPlay() override;

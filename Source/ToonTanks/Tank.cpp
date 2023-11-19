@@ -31,7 +31,6 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 void ATank::BeginPlay() {
 	Super::BeginPlay();
 	PlayerController = Cast<APlayerController>(GetController());
-	PlayerController->SetShowMouseCursor(true);
 }
 
 void ATank::MoveForward(float Value) {
