@@ -28,6 +28,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	USoundBase* GetHitSound();
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent* BaseMeshComponent;
@@ -46,4 +48,10 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Combat")
 	UParticleSystemComponent* TrailParticle;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	USoundBase* LaunchSound;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	USoundBase* HitSound;
 };

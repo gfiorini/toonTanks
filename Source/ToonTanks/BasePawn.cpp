@@ -55,6 +55,7 @@ void ABasePawn::Fire() {
 	const auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
 	                                                            ProjectileSpawnPoint->GetComponentLocation(),
 	                                                            ProjectileSpawnPoint->GetComponentRotation());
+	UGameplayStatics::PlaySoundAtLocation(this, Projectile->GetHitSound(), GetActorLocation());
 	Projectile->SetOwner(this);
 	Projectile->IgnoreActor(this);
 }
@@ -62,5 +63,8 @@ void ABasePawn::Fire() {
 void ABasePawn::HandleDestruction() {
 	if (DeathParticleSystem) {
 		UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticleSystem, GetActorLocation(), GetActorRotation());
+	}
+	if (DeathSound) {
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 	}
 }

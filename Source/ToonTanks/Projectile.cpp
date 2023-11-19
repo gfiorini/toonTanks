@@ -29,14 +29,16 @@ AProjectile::AProjectile() {
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay() {
 	Super::BeginPlay();
-	//PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
-
 	BaseMeshComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
 
 // Called every frame 
 void AProjectile::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
+}
+
+USoundBase* AProjectile::GetHitSound() {
+	return HitSound;
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
@@ -51,6 +53,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		                              UDamageType::StaticClass());
 		UGameplayStatics::SpawnEmitterAtLocation(this, ParticleSystem,
 		                                         GetActorLocation(), GetActorRotation());
+		UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		Destroy();
 	}
 }
