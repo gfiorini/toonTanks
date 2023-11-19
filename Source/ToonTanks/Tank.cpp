@@ -65,10 +65,6 @@ void ATank::HandleTankTurret(float Value) {
 
 void ATank::Fire() {
 	Super::Fire();
-	// DrawDebugSphere(GetWorld(),
-	//                 ProjectileSpawnPoint->GetComponentTransform().GetLocation(),
-	//                 14, 16, FColor::Red,
-	//                 false, 1);
 }
 
 void ATank::HandleDestruction() {

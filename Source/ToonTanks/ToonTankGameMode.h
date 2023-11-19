@@ -14,6 +14,11 @@ UCLASS()
 class TOONTANKS_API AToonTankGameMode : public AGameModeBase {
 	GENERATED_BODY()
 
+public:
+	void ActorDied(AActor* actor);
+	virtual void BeginPlay() override;
+	virtual void HandleGameStart();
+
 private:
 	UPROPERTY()
 	class ATank* Tank;
@@ -21,7 +26,5 @@ private:
 	UPROPERTY()
 	class AToonTankPlayerController* TankController;
 
-public:
-	void ActorDied(AActor* actor);
-	virtual void BeginPlay() override;
+	float Delay = 3.f;
 };
