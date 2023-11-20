@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	TSubclassOf<class AProjectile> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, Category="Combat")
+	TSubclassOf<UCameraShakeBase> DestroyCameraShake;
+
 private:
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* DeathParticleSystem;

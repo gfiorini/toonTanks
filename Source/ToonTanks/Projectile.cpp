@@ -30,6 +30,7 @@ AProjectile::AProjectile() {
 void AProjectile::BeginPlay() {
 	Super::BeginPlay();
 	BaseMeshComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+	UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
 }
 
 // Called every frame 
@@ -51,7 +52,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		UGameplayStatics::SpawnEmitterAtLocation(this, ParticleSystem,
 		                                         GetActorLocation(), GetActorRotation());
 		if (HitCameraShake) {
-			UGameplayStatics::GetPlayerController(this, 0)->ClientStartCameraShake(HitCameraShake);
+			GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitCameraShake);
 		}
 		Destroy();
 	}
