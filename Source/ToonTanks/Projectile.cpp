@@ -37,9 +37,6 @@ void AProjectile::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 }
 
-USoundBase* AProjectile::GetHitSound() {
-	return HitSound;
-}
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                         FVector NormalImpulse, const FHitResult& Hit) {
@@ -53,7 +50,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		                              UDamageType::StaticClass());
 		UGameplayStatics::SpawnEmitterAtLocation(this, ParticleSystem,
 		                                         GetActorLocation(), GetActorRotation());
-		UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		Destroy();
 	}
 }
