@@ -28,12 +28,18 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	float Countdown = 4.f;
 
+	UFUNCTION(BlueprintCallable)
+	void PlayTickSound();
+
 private:
 	UPROPERTY()
 	class ATank* Tank;
 
 	UPROPERTY()
 	class AToonTankPlayerController* TankController;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* TickSound;
 
 	int NumTurrets = 0;
 

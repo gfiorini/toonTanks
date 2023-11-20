@@ -32,6 +32,13 @@ void AToonTankGameMode::BeginPlay() {
 	StartGame();
 }
 
+void AToonTankGameMode::PlayTickSound() {
+	if (TickSound) {
+		UGameplayStatics::PlaySoundAtLocation(this, TickSound, Tank->GetActorLocation());
+	}
+}
+
+
 int AToonTankGameMode::GetNumTurrets() {
 	TArray<AActor*> Turrets;
 	UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(), Turrets);
