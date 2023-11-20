@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
+
 UCLASS()
 class TOONTANKS_API AProjectile : public AActor {
 	GENERATED_BODY()
@@ -17,6 +18,8 @@ public:
 	           FVector NormalImpulse, const FHitResult& Hit);
 
 	void IgnoreActor(ABasePawn* BasePawn);
+
+
 	// Sets default values for this actor's properties
 	AProjectile();
 
@@ -27,8 +30,6 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	USoundBase* GetHitSound();
 
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -54,4 +55,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Combat")
 	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	TSubclassOf<UCameraShakeBase> HitCameraShake;
 };
