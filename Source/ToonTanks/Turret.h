@@ -6,6 +6,7 @@
 #include "BasePawn.h"
 #include "Turret.generated.h"
 
+class ATank;
 /**
  * 
  */
@@ -30,7 +31,7 @@ private:
 	float Distance = 0.;
 
 	UPROPERTY()
-	APawn* PlayerPawn;
+	ATank* PlayerPawn;
 
 	FTimerHandle TimerHandle;
 

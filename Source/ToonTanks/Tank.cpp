@@ -31,6 +31,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 void ATank::BeginPlay() {
 	Super::BeginPlay();
 	PlayerController = Cast<APlayerController>(GetController());
+	bAlive = true;
 }
 
 void ATank::MoveForward(float Value) {
@@ -69,10 +70,15 @@ void ATank::Fire() {
 
 void ATank::HandleDestruction() {
 	Super::HandleDestruction();
+	bAlive = false;
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
 }
 
 APlayerController* ATank::GetPlayerController() {
 	return PlayerController;
+}
+
+bool ATank::IsAlive() {
+	return bAlive;
 }

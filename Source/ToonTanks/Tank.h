@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BasePawn.h"
+#include "Turret.h"
 #include "Tank.generated.h"
 
 
@@ -20,6 +21,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void HandleDestruction() override;
 	APlayerController* GetPlayerController();
+	bool IsAlive();
 
 protected:
 	// Called to bind functionality to input
@@ -42,6 +44,8 @@ private:
 
 	UPROPERTY()
 	APlayerController* PlayerController;
+
+	bool bAlive = true;
 
 	void MoveForward(float Value);
 

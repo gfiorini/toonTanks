@@ -3,12 +3,13 @@
 
 #include "Turret.h"
 
+#include "Tank.h"
 #include "Kismet/GameplayStatics.h"
 
 
 bool ATurret::InFireRange() {
-	if (PlayerPawn) {
-		FVector Target = PlayerPawn->GetActorLocation();
+	if (PlayerPawn && PlayerPawn->IsAlive()) {
+		const FVector Target = PlayerPawn->GetActorLocation();
 		return GetDistanceTo(Target) <= Distance;
 	}
 	return false;
@@ -40,7 +41,10 @@ float ATurret::GetDistanceTo(FVector Target) {
 void ATurret::BeginPlay() {
 	Super::BeginPlay();
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ATurret::FireIfYouCan, FireRate, true);
-	PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+	PlayerPawn = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+	if (!PlayerPawn) {
+		UE_LOG(LogTemp, Error, TEXT("PlayerPawn is null!"))
+	}
 }
 
 void ATurret::HandleDestruction() {
