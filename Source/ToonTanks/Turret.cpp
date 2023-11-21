@@ -8,8 +8,8 @@
 
 
 bool ATurret::InFireRange() {
-	if (PlayerPawn && PlayerPawn->IsAlive()) {
-		const FVector Target = PlayerPawn->GetActorLocation();
+	if (Tank && Tank->IsAlive()) {
+		const FVector Target = Tank->GetActorLocation();
 		return GetDistanceTo(Target) <= Distance;
 	}
 	return false;
@@ -17,7 +17,7 @@ bool ATurret::InFireRange() {
 
 void ATurret::MoveTowerIfNeeded() {
 	if (InFireRange()) {
-		Super::RotateTurret(PlayerPawn->GetActorLocation());
+		Super::RotateTurret(Tank->GetActorLocation());
 	}
 }
 
@@ -41,8 +41,8 @@ float ATurret::GetDistanceTo(FVector Target) {
 void ATurret::BeginPlay() {
 	Super::BeginPlay();
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ATurret::FireIfYouCan, FireRate, true);
-	PlayerPawn = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
-	if (!PlayerPawn) {
+	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+	if (!Tank) {
 		UE_LOG(LogTemp, Error, TEXT("PlayerPawn is null!"))
 	}
 }

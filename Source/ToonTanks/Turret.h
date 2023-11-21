@@ -31,7 +31,7 @@ private:
 	float Distance = 0.;
 
 	UPROPERTY()
-	ATank* PlayerPawn;
+	ATank* Tank;
 
 	FTimerHandle TimerHandle;
 
